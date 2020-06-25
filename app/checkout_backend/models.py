@@ -3,8 +3,33 @@ import uuid
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
+from checkout_backend.entities.cart_entity import CartEntity
+from checkout_backend.entities.offer_entity import OfferEntity
+from checkout_backend.entities.product_entity import ProductEntity
 
-class Product(models.Model):
+
+class EntityMixin:
+
+    ENTITY = None
+
+    def to_entity(self):
+        data = {}
+        for field in self._meta.fields:
+            field_name = field.name
+            field_value = getattr(self, field.name)
+
+            if hasattr(field_value, 'to_entity'):
+                field_value = field_value.to_entity()
+
+            data[field_name] = field_value
+
+        return self.ENTITY(
+            **data
+        )
+
+class Product(models.Model, EntityMixin):
+
+    ENTITY = ProductEntity
 
     code = models.CharField(
         max_length=20,
@@ -22,7 +47,9 @@ class Product(models.Model):
         return self.name
 
 
-class Offer(models.Model):
+class Offer(models.Model, EntityMixin):
+
+    ENTITY = OfferEntity
 
     name = models.CharField(
         max_length=60,
@@ -46,14 +73,16 @@ class Offer(models.Model):
         return self.name
 
 
-class Cart(models.Model):
+class Cart(models.Model, EntityMixin):
+
+    ENTITY = CartEntity
 
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
     )
 
-    items = JSONField(default={})
+    items = JSONField(default=dict)
 
     def __str__(self):
         return self.id
