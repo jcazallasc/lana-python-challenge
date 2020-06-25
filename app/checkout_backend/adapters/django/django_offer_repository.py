@@ -1,15 +1,16 @@
 from typing import List
 
 from checkout_backend.entities.offer_entity import OfferEntity
+from checkout_backend.entities.product_entity import ProductEntity
 from checkout_backend.interfaces.offer_repository import OfferRepository
 from checkout_backend.models import Offer
 
 
 class DjangoOfferRepository(OfferRepository):
 
-    def update_or_create(self, product_code: str, defaults: dict) -> OfferEntity:
+    def update_or_create(self, product: ProductEntity, defaults: dict) -> OfferEntity:
         offer, created = Offer.objects.update_or_create(
-            product__code=product_code,
+            product_id=product.id,
             defaults=defaults,
         )
 

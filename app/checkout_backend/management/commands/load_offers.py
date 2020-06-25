@@ -4,6 +4,8 @@ from django.core.management.base import BaseCommand, CommandError
 
 from checkout_backend.adapters.django.django_offer_repository import \
     DjangoOfferRepository
+from checkout_backend.adapters.django.django_product_repository import \
+    DjangoProductRepository
 from checkout_backend.management.commands.utils import get_full_path
 
 
@@ -13,6 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         csv_file = get_full_path('offers.csv')
         django_offer_repository = DjangoOfferRepository()
+        django_product_repository = DjangoProductRepository()
 
         try:
             with open(csv_file, mode='r') as csv_file:
@@ -22,8 +25,9 @@ class Command(BaseCommand):
                 )
 
                 for row in csv_reader:
+                    product_entity = django_product_repository.get(code=row['product_code'])
                     django_offer_repository.update_or_create(
-                        product_code=row['product_code'],
+                        product=product_entity,
                         defaults={
                             'name': row['name'],
                             'quantity': int(row['quantity']),
