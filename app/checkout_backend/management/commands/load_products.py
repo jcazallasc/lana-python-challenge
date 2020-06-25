@@ -3,6 +3,8 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 
+from checkout_backend.models import Product
+
 
 class Command(BaseCommand):
     help = """Load products from CSV file. The CSV File must to be inside commands folder."""
@@ -21,7 +23,12 @@ class Command(BaseCommand):
                 )
 
                 for row in csv_reader:
-                    # here create objects
-                    pass
+                    Product.objects.update_or_create(
+                        code=row['code'],
+                        defaults={
+                            'name': row['name'],
+                            'price': float(row['price']) * 100,
+                        },
+                    )
         except FileNotFoundError as error:
             raise CommandError(error)
