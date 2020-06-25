@@ -37,10 +37,10 @@ class Offer(models.Model):
     quantity = models.IntegerField()
 
     # Discount per unit: buy 2 => get 1 free
-    discount_unit = models.IntegerField()
+    discount_unit = models.IntegerField(null=True, blank=True)
 
     # Discount per percent: buy > 3 => -25%
-    discount_percent = models.IntegerField()
+    discount_percent = models.IntegerField(null=True, blank=True)
 
 
 class Cart(models.Model):
