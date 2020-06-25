@@ -53,7 +53,7 @@ class Cart(models.Model):
         default=uuid.uuid4,
     )
 
-    items = JSONField()
+    items = JSONField(default={})
 
     def __str__(self):
         return self.id
