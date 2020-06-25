@@ -1,5 +1,5 @@
 from checkout_backend.interfaces.cart_repository import CartRepository
-from checkout_backend.models import Cart
+from checkout_backend.models import Cart, Product
 
 
 class DjangoCartRepository(CartRepository):
