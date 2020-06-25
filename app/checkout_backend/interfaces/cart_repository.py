@@ -1,4 +1,5 @@
 from checkout_backend.entities.cart_entity import CartEntity
+from checkout_backend.entities.product_entity import ProductEntity
 
 
 class CartRepository:

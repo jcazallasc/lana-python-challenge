@@ -1,7 +1,7 @@
 from checkout_backend.entities.cart_entity import CartEntity
 from checkout_backend.entities.product_entity import ProductEntity
 from checkout_backend.interfaces.cart_repository import CartRepository
-from checkout_backend.models import Cart, Product
+from checkout_backend.models import Cart
 
 
 class DjangoCartRepository(CartRepository):

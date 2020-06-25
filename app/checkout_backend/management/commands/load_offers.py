@@ -5,7 +5,6 @@ from django.core.management.base import BaseCommand, CommandError
 from checkout_backend.adapters.django.django_offer_repository import \
     DjangoOfferRepository
 from checkout_backend.management.commands.utils import get_full_path
-from checkout_backend.models import Offer, Product
 
 
 class Command(BaseCommand):
