@@ -1,31 +1,40 @@
+from checkout_backend.entities.cart_entity import CartEntity
+from checkout_backend.entities.product_entity import ProductEntity
 from checkout_backend.interfaces.cart_repository import CartRepository
-from checkout_backend.models import Cart, Product
+from checkout_backend.models import Cart
 
 
 class DjangoCartRepository(CartRepository):
 
-    def create(self) -> Cart:
-        return Cart.objects.create()
+    def create(self) -> CartEntity:
+        return Cart.objects.create().to_entity()
 
-    def save(self, cart: Cart) -> Cart:
-        cart.save()
-        return cart
+    def get(self, id: str) -> CartEntity:
+        return Cart.objects.get(id=id).to_entity()
 
-    def get(self, id: str) -> Cart:
-        return Cart.objects.get(id=id)
+    def get_items(self, cart: CartEntity) -> dict:
+        return cart.items
 
-    def add_product(self, cart: Cart, product: Product) -> Cart:
-        cart.items[product.code] = 1
-        cart.save()
+    def add_item(self, cart: CartEntity, product: ProductEntity) -> CartEntity:
+        cart_model = self.get(cart.id)
 
-        return cart
+        if product.code in cart_model.items:
+            cart_model.items[product.code] += 1
+        else:
+            cart_model.items[product.code] = 1
 
-    def remove_product(self, cart: Cart, product: Product) -> Cart:
-        cart.items[product.code] -= 1
+        cart_model.save()
 
-        if not cart.items[product.code]:
-            del cart.items[product.code]
+        return cart_model.to_entity()
 
-        cart.save()
+    def remove_item(self, cart: CartEntity, product: ProductEntity) -> CartEntity:
+        cart_model = self.get(cart.id)
 
-        return cart
+        cart_model.items[product.code] -= 1
+
+        if not cart_model.items[product.code]:
+            del cart_model.items[product.code]
+
+        cart_model.save()
+
+        return cart_model.to_entity()
