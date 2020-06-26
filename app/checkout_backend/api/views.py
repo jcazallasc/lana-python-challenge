@@ -1,4 +1,4 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,7 +20,7 @@ class CreateCartAPIView(APIView):
             'total_amount': app.checkout.get_total_amount(cart_entity),
         })
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class DeleteCartAPIView(APIView):
 
@@ -32,6 +32,8 @@ class DeleteCartAPIView(APIView):
         try:
             app.checkout.delete_cart(cart_id)
         except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except ValidationError:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return Response()
@@ -48,6 +50,8 @@ class CartAddProductAPIView(APIView):
         try:
             cart_entity = app.checkout.add_product(cart_id, product_code)
         except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except ValidationError:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = CheckoutSerializer({
@@ -71,6 +75,8 @@ class CartRemoveProductAPIView(APIView):
         try:
             cart_entity = app.checkout.remove_product(cart_id, product_code)
         except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except ValidationError:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = CheckoutSerializer({
