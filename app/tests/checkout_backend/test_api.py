@@ -1,8 +1,3 @@
-import json
-from datetime import date
-from unittest.mock import MagicMock, patch
-
-from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
