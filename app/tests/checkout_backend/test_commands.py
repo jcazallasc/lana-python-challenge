@@ -3,8 +3,9 @@ import csv
 from django.core.management import call_command
 from django.test import TestCase
 
+from checkout_backend.adapters.django.offer_repository import DjangoOfferRepository
+from checkout_backend.adapters.django.product_repository import DjangoProductRepository
 from checkout_backend.management.commands.utils import get_full_path
-from checkout_backend.models import Offer, Product
 
 
 class CommandsTestCase(TestCase):
@@ -22,7 +23,7 @@ class CommandsTestCase(TestCase):
 
         call_command('load_products')
 
-        products_count = Product.objects.all().count()
+        products_count = len(DjangoProductRepository().all())
 
         self.assertEqual(
             products_count + 1,
@@ -35,7 +36,7 @@ class CommandsTestCase(TestCase):
         call_command('load_products')
         call_command('load_products')
 
-        products_count = Product.objects.all().count()
+        products_count = len(DjangoProductRepository().all())
 
         self.assertEqual(
             products_count + 1,
@@ -50,7 +51,7 @@ class CommandsTestCase(TestCase):
 
         call_command('load_offers')
 
-        offers_rates = Offer.objects.all().count()
+        offers_rates = len(DjangoOfferRepository().all())
 
         self.assertEqual(
             offers_rates + 1,
@@ -66,7 +67,7 @@ class CommandsTestCase(TestCase):
         call_command('load_offers')
         call_command('load_offers')
 
-        offers_rates = Offer.objects.all().count()
+        offers_rates = len(DjangoOfferRepository().all())
 
         self.assertEqual(
             offers_rates + 1,
