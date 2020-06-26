@@ -7,6 +7,9 @@ class CartRepository:
     def create(self) -> CartEntity:
         raise NotImplementedError
 
+    def delete(self, id: str) -> None:
+        raise NotImplementedError
+
     def get(self, id: str) -> CartEntity:
         raise NotImplementedError
 
