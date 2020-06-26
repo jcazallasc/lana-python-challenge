@@ -1,4 +1,4 @@
-from babel.numbers import format_currency, format_decimal
+from babel.numbers import format_currency
 from django.conf import settings
 
 

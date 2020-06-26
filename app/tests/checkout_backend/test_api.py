@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from checkout_backend.adapters.django.cart_repository import DjangoCartRepository
+from utils.formatters import format_price
 
 CREATE_CART = 'create-cart'
 DELETE_CART = 'delete-cart'
@@ -12,8 +13,8 @@ CART_ADD_PRODUCT = 'cart-add-product'
 CART_REMOVE_PRODUCT = 'cart-remove-product'
 
 
-class ExoCurrencyV1ApiTests(TestCase):
-    """Test for the API V1 of exo_currency"""
+class ApiTests(TestCase):
+    """Test for the API"""
 
     def setUp(self):
         self.client = APIClient()
@@ -30,7 +31,7 @@ class ExoCurrencyV1ApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(len(res.data['cart']['items']), 0)
-        self.assertEqual(int(res.data['total_amount']), 0)
+        self.assertEqual(res.data['total_amount'], format_price(0))
 
     def test_delete_existing_cart(self):
         """Test delete existing cart"""
