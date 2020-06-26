@@ -16,7 +16,7 @@ class DjangoCartRepository(CartRepository):
         return cart.items
 
     def add_item(self, cart: CartEntity, product: ProductEntity) -> CartEntity:
-        cart_model = self.get(cart.id)
+        cart_model = self._get(cart.id)
 
         if product.code in cart_model.items:
             cart_model.items[product.code] += 1
@@ -28,7 +28,7 @@ class DjangoCartRepository(CartRepository):
         return cart_model.to_entity()
 
     def remove_item(self, cart: CartEntity, product: ProductEntity) -> CartEntity:
-        cart_model = self.get(cart.id)
+        cart_model = self._get(cart.id)
 
         cart_model.items[product.code] -= 1
 
@@ -38,3 +38,6 @@ class DjangoCartRepository(CartRepository):
         cart_model.save()
 
         return cart_model.to_entity()
+
+    def _get(self, id: str) -> Cart:
+        return Cart.objects.get(id=id)
