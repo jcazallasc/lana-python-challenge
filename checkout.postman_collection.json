@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "d733b60b-b38b-46d6-8949-892239954f33",
+		"name": "Lana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cart/d59cc187-d2ac-4bb7-a2f9-3b96909f80ca/delete/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cart",
+						"d59cc187-d2ac-4bb7-a2f9-3b96909f80ca",
+						"delete",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart Add Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cart/d59cc187-d2ac-4bb7-a2f9-3b96909f80ca/add-product/PEN/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cart",
+						"d59cc187-d2ac-4bb7-a2f9-3b96909f80ca",
+						"add-product",
+						"PEN",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart Remove Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/cart/d59cc187-d2ac-4bb7-a2f9-3b96909f80ca/remove-product/PEN/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cart",
+						"d59cc187-d2ac-4bb7-a2f9-3b96909f80ca",
+						"remove-product",
+						"PEN",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
