@@ -8,7 +8,4 @@ class DependDiscountOffer(BaseOffer):
         product_quantity: int,
         product_price: int,
     ) -> int:
-        if product_quantity >= self.offer.quantity:
-            return product_quantity * product_price * (100 - self.offer.discount_percent) / 100
-        else:
-            return product_quantity * product_price
+        return product_quantity * product_price * (100 - self.offer.discount_percent) / 100
