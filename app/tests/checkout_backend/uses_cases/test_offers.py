@@ -1,15 +1,7 @@
-import csv
-from unittest.mock import patch
-
-from django.core.management import call_command
 from django.test import TestCase
 
-from checkout_backend.adapters.django.offer_repository import DjangoOfferRepository
-from checkout_backend.adapters.django.product_repository import DjangoProductRepository
 from checkout_backend.entities.offer_entity import OfferEntity
 from checkout_backend.entities.product_entity import ProductEntity
-from checkout_backend.management.commands.utils import get_full_path
-from checkout_backend.models import Offer, Product
 from checkout_backend.uses_cases.offers.factory_offer import FactoryOffer
 
 
