@@ -56,12 +56,12 @@ class OffersTestCase(TestCase):
         """Test get total amount with a multi buy offer"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.multi_buy_offer.product.code: {
+            [
+                {
                     'quantity': self.multi_buy_offer.quantity,
                     'product': self.multi_buy_offer.product,
                 }
-            }
+            ]
         )
 
         self.assertEqual(total_amount, 500)
@@ -70,12 +70,12 @@ class OffersTestCase(TestCase):
         """Test get total amount with percent discount amount"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.depend_discount_offer.product.code: {
+            [
+                {
                     'quantity': self.depend_discount_offer.quantity,
                     'product': self.depend_discount_offer.product,
                 }
-            }
+            ]
         )
 
         self.assertEqual(total_amount, 4500)
@@ -84,20 +84,20 @@ class OffersTestCase(TestCase):
         """Test lana case 1"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.product_pen.code: {
+            [
+                {
                     'quantity': 1,
                     'product': self.product_pen,
                 },
-                self.product_tshirt.code: {
+                {
                     'quantity': 1,
                     'product': self.product_tshirt,
                 },
-                self.product_mug.code: {
+                {
                     'quantity': 1,
                     'product': self.product_mug,
                 },
-            },
+            ],
         )
 
         self.assertEqual(total_amount, 3250)
@@ -106,16 +106,16 @@ class OffersTestCase(TestCase):
         """Test lana case 2"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.product_pen.code: {
+            [
+                {
                     'quantity': 2,
                     'product': self.product_pen,
                 },
-                self.product_tshirt.code: {
+                {
                     'quantity': 1,
                     'product': self.product_tshirt,
                 },
-            },
+            ],
         )
 
         self.assertEqual(total_amount, 2500)
@@ -124,16 +124,16 @@ class OffersTestCase(TestCase):
         """Test lana case 3"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.product_pen.code: {
+            [
+                {
                     'quantity': 1,
                     'product': self.product_pen,
                 },
-                self.product_tshirt.code: {
+                {
                     'quantity': 4,
                     'product': self.product_tshirt,
                 },
-            },
+            ],
         )
 
         self.assertEqual(total_amount, 6500)
@@ -142,20 +142,20 @@ class OffersTestCase(TestCase):
         """Test lana case 4"""
 
         total_amount = self.total_amount_processor.get_total_amount(
-            {
-                self.product_pen.code: {
+            [
+                {
                     'quantity': 3,
                     'product': self.product_pen,
                 },
-                self.product_tshirt.code: {
+                {
                     'quantity': 3,
                     'product': self.product_tshirt,
                 },
-                self.product_mug.code: {
+                {
                     'quantity': 1,
                     'product': self.product_mug,
                 },
-            },
+            ],
         )
 
         self.assertEqual(total_amount, 6250)

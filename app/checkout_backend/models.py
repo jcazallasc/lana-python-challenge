@@ -85,4 +85,4 @@ class Cart(models.Model, EntityMixin):
     items = JSONField(default=dict)
 
     def __str__(self):
-        return self.id
+        return str(self.id)

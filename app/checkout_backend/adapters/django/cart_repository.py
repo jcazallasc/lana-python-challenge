@@ -9,6 +9,9 @@ class DjangoCartRepository(CartRepository):
     def create(self) -> CartEntity:
         return Cart.objects.create().to_entity()
 
+    def delete(self, id: str) -> None:
+        return self._get(id).delete()
+
     def get(self, id: str) -> CartEntity:
         return Cart.objects.get(id=id).to_entity()
 
@@ -30,12 +33,13 @@ class DjangoCartRepository(CartRepository):
     def remove_item(self, cart: CartEntity, product: ProductEntity) -> CartEntity:
         cart_model = self._get(cart.id)
 
-        cart_model.items[product.code] -= 1
+        if product.code in cart_model.items:
+            cart_model.items[product.code] -= 1
 
-        if not cart_model.items[product.code]:
-            del cart_model.items[product.code]
+            if not cart_model.items[product.code]:
+                del cart_model.items[product.code]
 
-        cart_model.save()
+            cart_model.save()
 
         return cart_model.to_entity()
 
