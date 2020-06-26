@@ -45,7 +45,7 @@ class CheckoutTestCase(TestCase):
 
         product = self.product_repository.all()[0]
 
-        cart_entity = self.checkout.add_product(self.cart, product.code)
+        cart_entity = self.checkout.add_product(self.cart.id, product.code)
 
         self.assertTrue(isinstance(cart_entity, CartEntity))
         self.assertEqual(len(cart_entity.items), 1)
@@ -56,8 +56,8 @@ class CheckoutTestCase(TestCase):
 
         product = self.product_repository.all()[0]
 
-        self.checkout.add_product(self.cart, product.code)
-        cart_entity = self.checkout.add_product(self.cart, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
+        cart_entity = self.checkout.add_product(self.cart.id, product.code)
 
         self.assertTrue(isinstance(cart_entity, CartEntity))
         self.assertEqual(len(cart_entity.items), 1)
@@ -69,10 +69,10 @@ class CheckoutTestCase(TestCase):
         product = self.product_repository.all()[0]
 
         # First, add 2 products
-        self.checkout.add_product(self.cart, product.code)
-        self.checkout.add_product(self.cart, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
 
-        cart_entity = self.checkout.remove_product(self.cart, product.code)
+        cart_entity = self.checkout.remove_product(self.cart.id, product.code)
 
         self.assertTrue(isinstance(cart_entity, CartEntity))
         self.assertEqual(len(cart_entity.items), 1)
@@ -84,11 +84,11 @@ class CheckoutTestCase(TestCase):
         product = self.product_repository.all()[0]
 
         # First, add 2 products
-        self.checkout.add_product(self.cart, product.code)
-        self.checkout.add_product(self.cart, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
 
-        self.checkout.remove_product(self.cart, product.code)
-        cart_entity = self.checkout.remove_product(self.cart, product.code)
+        self.checkout.remove_product(self.cart.id, product.code)
+        cart_entity = self.checkout.remove_product(self.cart.id, product.code)
 
         self.assertTrue(isinstance(cart_entity, CartEntity))
         self.assertEqual(len(cart_entity.items), 0)
@@ -99,8 +99,8 @@ class CheckoutTestCase(TestCase):
         product = self.product_repository.all()[0]
 
         # Add 2 products
-        self.checkout.add_product(self.cart, product.code)
-        cart_entity = self.checkout.add_product(self.cart, product.code)
+        self.checkout.add_product(self.cart.id, product.code)
+        cart_entity = self.checkout.add_product(self.cart.id, product.code)
 
         total_amount = self.checkout.get_total_amount(cart_entity)
 
