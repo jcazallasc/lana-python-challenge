@@ -2,8 +2,7 @@ import csv
 
 from django.core.management.base import BaseCommand, CommandError
 
-from checkout_backend.adapters.django.django_product_repository import \
-    DjangoProductRepository
+from checkout_backend.adapters.django.product_repository import DjangoProductRepository
 from checkout_backend.management.commands.utils import get_full_path
 
 
