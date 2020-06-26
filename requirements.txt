@@ -2,6 +2,7 @@ Django>=2.2.13,<3
 djangorestframework
 psycopg2
 
+babel
 attrs
 flake8
 ipdb
