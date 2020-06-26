@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Cart: {{ cart.id}}</div>
+                    <div class="card-body">
+                        <form action="" method="GET">
+                            {% for offer in offers %}
+                            <div class="alert alert-success">
+                                Offer! {{offer.name}} for buying {{ offer.product.name}}
+                            </div>
+                            {% endfor %}
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Units</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product in products %}
+                                    <tr>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.price_formatted }}</td>
+                                        <td>
+
+                                            {% for product_code, product_quantity in cart.items.items %}
+                                            {% if product_code == product.code %}
+                                            {{ product_quantity }}
+                                            {% endif %}
+                                            {% endfor %}
+
+                                            <div class="float-right">
+                                                <button class="btn btn-small btn-success add-product"
+                                                    data-cart_id="{{ cart.id}}"
+                                                    data-product_code="{{ product.code }}">+</button>
+                                                <button class="btn btn-small btn-danger remove-product"
+                                                    data-cart_id="{{ cart.id}}"
+                                                    data-product_code="{{ product.code }}">-</button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr class="font-weight-bold">
+                                        <td>TOTAL</td>
+                                        <td></td>
+                                        <td>{{ total_amount }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% csrf_token %}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.add-product').on('click', function (e) {
+                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                var cart_id = $(this).data('cart_id');
+                var product_code = $(this).data('product_code');
+
+                $.ajax({
+                    type: 'POST',
+                    url: `http://localhost:8000/api/cart/${cart_id}/add-product/${product_code}/`,
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    },
+                    success: function () {
+                        location.reload();
+                    },
+                });
+
+                return false;
+            })
+
+            $('.remove-product').on('click', function () {
+                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                var cart_id = $(this).data('cart_id');
+                var product_code = $(this).data('product_code');
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: `http://localhost:8000/api/cart/${cart_id}/remove-product/${product_code}/`,
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    },
+                    success: function () {
+                        location.reload();
+                    },
+                });
+
+                return false;
+            })
+        });
+    </script>
+</body>
+
+</html>

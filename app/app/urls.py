@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('checkout_backend.api.urls')),
+    path('checkout/', include('checkout_frontend.urls')),
 ]
