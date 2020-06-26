@@ -2,7 +2,6 @@ from django.test import TestCase
 
 from checkout_backend.entities.offer_entity import OfferEntity
 from checkout_backend.entities.product_entity import ProductEntity
-from checkout_backend.uses_cases.offers.factory_offer import FactoryOffer
 from checkout_backend.uses_cases.total_amount_processor import TotalAmountProcessor
 
 
