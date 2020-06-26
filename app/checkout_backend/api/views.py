@@ -1,10 +1,10 @@
-from rest_framework import generics
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from checkout_backend.api.serializers import CheckoutSerializer
 from checkout_backend.app import app
-from checkout_backend.uses_cases.checkout import Checkout
 
 
 class CreateCartAPIView(APIView):
@@ -29,7 +29,10 @@ class DeleteCartAPIView(APIView):
         request,
         cart_id,
     ):
-        app.checkout.delete_cart(cart_id)
+        try:
+            app.checkout.delete_cart(cart_id)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         return Response()
 
@@ -42,7 +45,10 @@ class CartAddProductAPIView(APIView):
         cart_id,
         product_code,
     ):
-        cart_entity = app.checkout.add_product(cart_id, product_code)
+        try:
+            cart_entity = app.checkout.add_product(cart_id, product_code)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = CheckoutSerializer({
             'cart': {
@@ -62,7 +68,10 @@ class CartRemoveProductAPIView(APIView):
         cart_id,
         product_code,
     ):
-        cart_entity = app.checkout.remove_product(cart_id, product_code)
+        try:
+            cart_entity = app.checkout.remove_product(cart_id, product_code)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = CheckoutSerializer({
             'cart': {

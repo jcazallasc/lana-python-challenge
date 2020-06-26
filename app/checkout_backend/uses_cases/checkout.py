@@ -57,7 +57,6 @@ class Checkout:
         ]
 
     def get_total_amount(self, cart: CartEntity) -> int:
-        products = self.cart_repository.get_items(cart)
         offers = self.offer_repository.all()
 
         total_amount_processor = TotalAmountProcessor(offers)
