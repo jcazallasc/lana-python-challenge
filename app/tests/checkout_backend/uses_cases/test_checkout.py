@@ -5,8 +5,6 @@ from checkout_backend.adapters.django.cart_repository import DjangoCartRepositor
 from checkout_backend.adapters.django.offer_repository import DjangoOfferRepository
 from checkout_backend.adapters.django.product_repository import DjangoProductRepository
 from checkout_backend.entities.cart_entity import CartEntity
-from checkout_backend.entities.offer_entity import OfferEntity
-from checkout_backend.entities.product_entity import ProductEntity
 from checkout_backend.uses_cases.checkout import Checkout
 
 
