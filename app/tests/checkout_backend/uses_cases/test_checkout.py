@@ -6,6 +6,7 @@ from checkout_backend.adapters.django.offer_repository import DjangoOfferReposit
 from checkout_backend.adapters.django.product_repository import DjangoProductRepository
 from checkout_backend.entities.cart_entity import CartEntity
 from checkout_backend.uses_cases.checkout import Checkout
+from utils.formatters import format_price
 
 
 class CheckoutTestCase(TestCase):
@@ -104,4 +105,4 @@ class CheckoutTestCase(TestCase):
 
         total_amount = self.checkout.get_total_amount(cart_entity)
 
-        self.assertEqual(product.price * 2, total_amount)
+        self.assertEqual(format_price(product.price * 2), total_amount)
