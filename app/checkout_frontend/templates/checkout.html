@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Cart: {{ cart.id}}</div>
+                    <div class="card-header">Cart: {{ cart.id }}</div>
                     <div class="card-body">
                         <form action="" method="GET">
                             {% for offer in offers %}
@@ -77,6 +77,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
         $(document).ready(function () {
+            if (!location.href.includes('?cart_id=')) {
+                location.href += '?cart_id={{ cart.id }}'
+            }
+
             $('.add-product').on('click', function (e) {
                 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
                 var cart_id = $(this).data('cart_id');

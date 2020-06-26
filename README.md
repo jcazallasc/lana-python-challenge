@@ -16,7 +16,7 @@ docker-compose up
 ```
 This command will expose the app under `http://localhost:8000/`
 
-Also, the first time, `docker-compose` will run the migrations and run the commands (load_products and load_offers) to populate the database. 
+Also, the first time, `docker-compose` will run the migrations and run the commands (`load_products` and `load_offers`) to populate the database. 
 
 ## How to enter to the container?
 After the previous step.
