@@ -1,5 +1,3 @@
-from utils.formatters import format_price
-
 from ..entities.cart_entity import CartEntity
 from ..interfaces.cart_repository import CartRepository
 from ..interfaces.offer_repository import OfferRepository
@@ -65,4 +63,4 @@ class Checkout:
 
         data = self._get_items(cart)
 
-        return format_price(total_amount_processor.get_total_amount(data))
+        return total_amount_processor.get_total_amount(data)

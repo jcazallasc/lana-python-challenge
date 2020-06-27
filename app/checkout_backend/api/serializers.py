@@ -23,4 +23,7 @@ class CartSerializer(serializers.Serializer):
 
 class CheckoutSerializer(serializers.Serializer):
     cart = CartSerializer()
-    total_amount = serializers.CharField()
+    total_amount = serializers.SerializerMethodField()
+
+    def get_total_amount(self, obj):
+        return format_price(obj['total_amount'])
