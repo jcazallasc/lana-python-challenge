@@ -6,7 +6,6 @@
 - [API doc](docs/api/checkout-backend.md) 
 - [Frontend doc](docs/checkout-frontend.md)
 - [How it was developed](docs/how-it-was-developed.md) 
-- [Next steps](docs/next-steps.md) 
 
 ## Prerequisites
 - [Docker](https://docs.docker.com/docker-for-mac/install/) 
