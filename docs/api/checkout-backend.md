@@ -1,4 +1,4 @@
-# Exo currency
+# checkout_backend: API
 Supports:
 - Create cart
 - Delete cart
