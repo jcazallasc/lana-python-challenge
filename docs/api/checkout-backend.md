@@ -1,4 +1,7 @@
 # checkout_backend: API
+
+As it was developed using DRF, you can access to `http://localhost:8000/api/` to interact with the API. Anyway, in the root of the project you can find a postman collection if you prefer it.
+
 Supports:
 - Create cart
 - Delete cart
@@ -57,7 +60,7 @@ Content-Type application/json
 
 **Request**:
 
-`POST` `http://localhost:8000/api/cart/:cart_id/add-product/:product_code_/`
+`POST` `http://localhost:8000/api/cart/:cart_id/add-product/:product_code/`
 
 Parameters:
 
@@ -99,7 +102,7 @@ Content-Type application/json
 
 **Request**:
 
-`DELETE` `http://localhost:8000/api/cart/:cart_id/remove-product/:product_code_/`
+`DELETE` `http://localhost:8000/api/cart/:cart_id/remove-product/:product_code/`
 
 Parameters:
 
