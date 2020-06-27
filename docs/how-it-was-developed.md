@@ -35,3 +35,9 @@ On the other hand, in order to create the proper offer, there is a `FactoryOffer
 ## Total amount processor
 
 In order to integrate `Offers` in the total amount calculation I decided to create this class to process all items in the cart taking into account of the existing offers.
+
+## Dealing with prices
+
+Internally, all prices are stored as integers and formatted to a nice format in the `Serializers` using the util function `format_price`.
+
+By default, this app uses `EUR` as currency and `es_ES` as locale.
