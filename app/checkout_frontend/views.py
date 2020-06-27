@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from checkout_frontend.app import app
+from utils.formatters import format_price
 
 
 class CheckoutView:
@@ -19,5 +20,5 @@ class CheckoutView:
             'products': app.product_repository.all(),
             'offers': app.offer_repository.all(),
             'cart': cart,
-            'total_amount': app.checkout.get_total_amount(cart),
+            'total_amount': format_price(app.checkout.get_total_amount(cart)),
         })
